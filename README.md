@@ -158,15 +158,6 @@ On completion, check `best_bot_weights.txt` for the evolved network weights of t
 
 ---
 
-## Why this project?
-
-- **Neural network from first principles** — understanding how inference works (layers, activations, softmax) without hiding it behind a framework.
-- **Hard to hand-code optimal poker** — outcome space is huge; strategies depend on opponents and incomplete information.
-- **Evolution discovers policies** — fitness comes from actual game results, not labeled training data.
-- **Broader applications** — same ideas apply to decision-making under uncertainty (economics, business, multi-agent systems) where actors must reason about limited information and opponent behavior.
-
----
-
 ## Key results (observed behavior)
 
 - Strategies **converge over generations** — late-generation winners share similar decision patterns.
