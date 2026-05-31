@@ -1,10 +1,6 @@
 # Evolutionary Poker AI
 
-A Texas Hold'em poker simulator that evolves neural-network poker bots using **neuroevolution** (genetic algorithms + feedforward neural networks). Bots compete in simulated games; the strongest strategies survive, mutate, and crossover across generations until strategies converge toward high-performing play.
-
-**Built from scratch:** The feedforward neural network is implemented in plain Java (`NeuralNetwork.java`) — no TensorFlow, PyTorch, or other ML libraries. Forward pass, ReLU activations, softmax action selection, and raise sizing are all hand-coded.
-
-**Course:** Harvard Extension School — Intro to Java II (Final Project)
+A Texas Hold'em poker simulator that evolves neural-network poker bots using **neuroevolution** (genetic algorithms + feedforward neural networks). Bots compete in simulated games; the strongest strategies survive, mutate, and crossover across generations until strategies converge toward high-performing play. The feedforward neural network is implemented in plain Java. Forward pass, ReLU activations, softmax action selection, and raise sizing are all hand-coded.
 
 ---
 
@@ -21,6 +17,15 @@ The pipeline has three stages:
 Over many generations, bot behavior converges: winning bots from later generations tend to employ similar, balanced strategies (mix of aggression, calls, and folds).
 
 ---
+
+## Project Motivation
+Poker is a useful environment for studying AI decision-making because it combines incomplete information, probabilistic outcomes, opponent behavior, and long-term strategy.
+
+Unlike games where the best move can be calculated from fully visible information, Texas Hold’em requires each player to make decisions with limited data. A bot must estimate the strength of its hand, respond to betting behavior, manage its chip stack, and decide when to fold, call, or raise without knowing what its opponents hold.
+
+This made poker a strong environment for testing neuroevolution. Instead of manually writing rules for when a bot should bluff, fold, or raise, I built a system where strategies emerge through simulation. Bots compete against each other, receive fitness scores based on performance, and pass successful traits into future generations.
+
+The broader goal was to study how decision-making systems can improve over time when outcomes are uncertain and feedback is noisy — a pattern that also appears in business, economics, sales strategy, and other competitive environments.
 
 ## How It Works
 
