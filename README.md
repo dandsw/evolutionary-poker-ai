@@ -64,6 +64,8 @@ Training does not use backpropagation or gradient descent. Instead, **neuroevolu
 
 See `NeuralNetwork.java` for the implementation.
 
+![Neural network architecture](Images/Nueral%20Network%20Nodes%20Diagram.png)
+
 ### Hand strength lookup
 
 `HandStrengthGenerator` builds a lookup map **before** evolution so bots get instant equity-like signals during play:
