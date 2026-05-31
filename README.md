@@ -14,7 +14,7 @@ The pipeline has three stages:
 2. **Simulate games** — Bots play full Texas Hold'em hands using neural networks for fold / call / raise decisions.
 3. **Evolve populations** — Top performers breed the next generation via elitism, mutation, and uniform crossover.
 
-Over many generations, bot behavior converges: winning bots from later generations tend to employ similar, balanced strategies (mix of aggression, calls, and folds).
+Over many generations, bot behavior began to converge within the simulator: winning bots from later generations tended to employ more balanced mixes of folds, calls, and raises.
 
 ---
 
@@ -61,6 +61,10 @@ Training does not use backpropagation or gradient descent. Instead, **neuroevolu
 **Inputs:** chip stack ratio, hand strength, game stage, pot size, round progress, fold count, raise/call activity, and opponent stack pressure.
 
 **Actions:** `FOLD`, `CALL`, or `RAISE` (with learned raise sizing on top of the table minimum).
+
+The diagram below shows the structure of each poker bot’s neural-network policy. The network takes 9 normalized game-state inputs, passes them through two hidden layers with 16 and 8 nodes, and produces 4 outputs: three action scores for `FOLD`, `CALL`, and `RAISE`, plus a dedicated raise-sizing output.
+
+This architecture lets each bot make decisions from the current game state without relying on hard-coded poker strategy rules. The weights and biases in this network are not trained with backpropagation; they are evolved through selection, mutation, and crossover across generations.f
 
 See `NeuralNetwork.java` for the implementation.
 
@@ -180,6 +184,17 @@ Current limitations include:
 - More rigorous evaluation would require comparing evolved bots against fixed baseline strategies.
 
 ---
+
+## What I Learned
+
+This project helped me understand that AI performance depends on more than the model itself. The neural network was only one part of the system. Bot behavior was shaped by the simulator, input features, hand-strength estimates, fitness function, mutation schedule, and evaluation process.
+
+The biggest lesson was that evaluation design matters. If the fitness function rewards the wrong behavior, the bots optimize toward bad strategies. To produce useful behavior, the system needs the right feedback loop, clear success metrics, and safeguards against degenerate outcomes.
+
+This is directly relevant to AI-native work because real AI products also depend on more than model capability. They need strong workflows, thoughtful evaluation, clear user feedback, and careful communication about where the system performs well or fails.
+
+---
+
 ## Author
 
 **Deven Walsh** — [GitHub: dandsw](https://github.com/dandsw)
