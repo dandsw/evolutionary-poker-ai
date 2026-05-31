@@ -1,6 +1,6 @@
 # Evolutionary Poker AI
 
-A Texas Hold'em poker simulator that evolves neural-network poker bots using **neuroevolution** (genetic algorithms + feedforward neural networks). Bots compete in simulated games; the strongest strategies survive, mutate, and crossover across generations until strategies converge toward high-performing play. The feedforward neural network is implemented in plain Java. Forward pass, ReLU activations, softmax action selection, and raise sizing are all hand-coded.
+A Texas Hold'em poker simulator that evolves neural-network poker bots using **neuroevolution** (genetic algorithms + feedforward neural networks). Bots compete in simulated games; stronger strategies survive, mutate, and crossover across generations, allowing the population to evolve toward stronger play within the constraints of the simulator. The feedforward neural network is implemented from scratch in plain Java. Forward pass, ReLU activations, softmax action selection, and raise sizing are all hand-coded.
 
 ---
 
@@ -162,10 +162,22 @@ On completion, check `best_bot_weights.txt` for the evolved network weights of t
 
 - Strategies **converge over generations** — late-generation winners share similar decision patterns.
 - Fitness function encourages **balanced play** — bots that only fold, only call, or only raise score poorly.
-- Evolved bots become **challenging simulated opponents** without explicit strategy rules.
+- Evolved bots become **more challenging** simulated opponents without being given explicit poker strategy rules.
 
 ---
+## Limitations
 
+This project is not intended to be a production-grade poker solver. It is a controlled simulation for studying AI decision-making and evolutionary optimization.
+
+Current limitations include:
+
+- Bot performance is only measured inside this custom simulator.
+- Hand-strength estimates are approximations based on Monte Carlo simulation.
+- The model does not use backpropagation, reinforcement learning, or opponent-specific memory.
+- The fitness function strongly shapes what behaviors emerge.
+- More rigorous evaluation would require comparing evolved bots against fixed baseline strategies.
+
+---
 ## Author
 
 **Deven Walsh** — [GitHub: dandsw](https://github.com/dandsw)
