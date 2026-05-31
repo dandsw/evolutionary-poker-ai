@@ -2,6 +2,8 @@
 
 A Texas Hold'em poker simulator that evolves neural-network poker bots using **neuroevolution** (genetic algorithms + feedforward neural networks). Bots compete in simulated games; the strongest strategies survive, mutate, and crossover across generations until strategies converge toward high-performing play.
 
+**Built from scratch:** The feedforward neural network is implemented in plain Java (`NeuralNetwork.java`) — no TensorFlow, PyTorch, or other ML libraries. Forward pass, ReLU activations, softmax action selection, and raise sizing are all hand-coded.
+
 **Course:** Harvard Extension School — Intro to Java II (Final Project)
 
 ---
@@ -33,9 +35,16 @@ Over many generations, bot behavior converges: winning bots from later generatio
 - Early wins when all but one player folds
 - Elimination of busted bots; play continues until one survivor or a round limit
 
-### Neural network policy
+### Neural network policy (implemented from scratch)
 
-Each bot's brain is a feedforward network (weights stored in `BotGenetics`):
+Each bot's brain is a **custom feedforward neural network** written without ML frameworks. Weights and biases live in `BotGenetics`; `NeuralNetwork.java` performs the full inference pipeline:
+
+- **Matrix multiplication** across layers (9 → 16 → 8 → 4 outputs)
+- **ReLU** on hidden units (`max(0, x)`)
+- **Softmax** over fold / call / raise logits to pick an action
+- **Dedicated raise neuron** for bet sizing when the network chooses `RAISE`
+
+Training does not use backpropagation or gradient descent. Instead, **neuroevolution** tunes weights via selection, mutation, and crossover based on poker fitness — but the network architecture and forward pass are entirely original Java.
 
 | Layer | Size | Activation |
 |-------|------|------------|
@@ -47,6 +56,8 @@ Each bot's brain is a feedforward network (weights stored in `BotGenetics`):
 **Inputs:** chip stack ratio, hand strength, game stage, pot size, round progress, fold count, raise/call activity, and opponent stack pressure.
 
 **Actions:** `FOLD`, `CALL`, or `RAISE` (with learned raise sizing on top of the table minimum).
+
+See `NeuralNetwork.java` for the implementation.
 
 ### Hand strength lookup
 
@@ -102,7 +113,7 @@ main
 | `BotSelector.java` | GA loop: simulate, select, mutate, crossover |
 | `GameEngineSimulator.java` | Full Hold'em game engine |
 | `PokerBot.java` | Bot state, actions, fitness, best-hand selection |
-| `NeuralNetwork.java` | Feedforward policy network |
+| `NeuralNetwork.java` | **From-scratch** feedforward NN (ReLU, softmax, forward pass) |
 | `BotGenetics.java` | Weight/bias genome and mutation |
 | `Hand.java` / `HandEvaluator.java` | Hand representation and ranking |
 | `Deck.java` / `Card.java` | Standard 52-card deck |
@@ -113,7 +124,7 @@ main
 ## Requirements
 
 - Java 8 or later
-- No external dependencies
+- **No external dependencies** — no ML libraries; the neural network, poker engine, and genetic algorithm are self-contained
 
 ---
 
@@ -144,6 +155,7 @@ On completion, check `best_bot_weights.txt` for the evolved network weights of t
 
 ## Why this project?
 
+- **Neural network from first principles** — understanding how inference works (layers, activations, softmax) without hiding it behind a framework.
 - **Hard to hand-code optimal poker** — outcome space is huge; strategies depend on opponents and incomplete information.
 - **Evolution discovers policies** — fitness comes from actual game results, not labeled training data.
 - **Broader applications** — same ideas apply to decision-making under uncertainty (economics, business, multi-agent systems) where actors must reason about limited information and opponent behavior.
