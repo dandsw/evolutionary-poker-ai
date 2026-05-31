@@ -105,7 +105,7 @@ main
            └── BotGenetics    (genome)
 ```
 
-![UML class diagram](PokerBotUML.png)
+![UML class diagram](Images/PokerBotUML.png)
 
 ---
 
@@ -122,7 +122,7 @@ main
 | `BotGenetics.java` | Weight/bias genome and mutation |
 | `Hand.java` / `HandEvaluator.java` | Hand representation and ranking |
 | `Deck.java` / `Card.java` | Standard 52-card deck |
-| `PokerBotUML.png` | Class diagram |
+| `Images/` | UML class diagram and neural network architecture diagrams |
 
 ---
 
